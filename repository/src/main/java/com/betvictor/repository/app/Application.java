@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.web.WebApplicationInitializer;
 
 @EnableMongoRepositories(basePackages = "com.betvictor.repository")
-@ComponentScan(basePackages = "com.betvictor")
+@ComponentScan(basePackages = "com.betvictor.repository")
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer implements WebApplicationInitializer {
 

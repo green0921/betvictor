@@ -8,8 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.WebApplicationInitializer;
 
-@EnableFeignClients(basePackages = "com.betvictor")
-@ComponentScan(basePackages = "com.betvictor")
+@EnableFeignClients(basePackages = "com.betvictor.processing")
+@ComponentScan(basePackages = "com.betvictor.processing")
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer implements WebApplicationInitializer {
 
