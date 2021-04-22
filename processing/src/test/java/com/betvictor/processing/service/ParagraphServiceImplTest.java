@@ -10,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigInteger;
 import java.util.AbstractMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.betvictor.processing.testUtilities.TestUtils.createParagraphRequest;
 import static com.betvictor.processing.testUtilities.TestUtils.createStreamData;
@@ -38,7 +38,7 @@ public class ParagraphServiceImplTest {
         ParagraphRequest paragraphRequest = createParagraphRequest(ONE, ONE, 2, 4);
         long numberOfRequests = ONE;
         double currentProcessingTime = ONE;
-        StreamData streamData = createStreamData(new AbstractMap.SimpleEntry<>("One", ONE), BigInteger.ONE, BigInteger.valueOf(3));
+        StreamData streamData = createStreamData(new AbstractMap.SimpleEntry<>("One", ONE), new AtomicInteger(ONE), new AtomicInteger(3));
         ParagraphResponse paragraphResponse = new ParagraphResponse("Something", "1", "2", "3");
         when(randomTextProcessor.processRandomTexts(paragraphRequest)).thenReturn(streamData);
         when(timeUtil.getElapsedTimeInSeconds()).thenReturn(currentProcessingTime);

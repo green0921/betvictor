@@ -7,13 +7,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigInteger;
 import java.util.AbstractMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.betvictor.processing.testUtilities.TestUtils.createStreamData;
 import static com.betvictor.processing.utilites.Constants.ONE;
 import static com.betvictor.processing.utilites.Constants.ZERO;
-import static java.math.BigInteger.TEN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,7 +25,8 @@ public class ParagraphCreatorImplTest {
     @Test
     public void testParagraphCreatorImplTest_whenNumbersCanBeDivide_thenReturnParagraphResponse() {
         //GIVEN
-        StreamData streamData = createStreamData(new AbstractMap.SimpleEntry<>("Something", ONE), BigInteger.ONE, TEN);
+        StreamData streamData = createStreamData(new AbstractMap.SimpleEntry<>("Something", ONE),
+                new AtomicInteger(ONE), new AtomicInteger(10));
         ParagraphResponse paragraphResponse = new ParagraphResponse("Something", "10",
                 "1.0000 s", "1.0000 s");
         long numberOfRequests = ONE;
@@ -41,7 +41,8 @@ public class ParagraphCreatorImplTest {
     @Test
     public void testParagraphCreatorImplTest_whenNumbersCannotBeDivide_thenReturnParagraphResponse() {
         //GIVEN
-        StreamData streamData = createStreamData(new AbstractMap.SimpleEntry<>("Something", ONE), BigInteger.ZERO, TEN);
+        StreamData streamData = createStreamData(new AbstractMap.SimpleEntry<>("Something", ONE),
+                new AtomicInteger(ZERO), new AtomicInteger(10));
         ParagraphResponse paragraphResponse = new ParagraphResponse("Something", "0",
                 "0.0000 s", "1.0000 s");
         long numberOfRequests = ZERO;

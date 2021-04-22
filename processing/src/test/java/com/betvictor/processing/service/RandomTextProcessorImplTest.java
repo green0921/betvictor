@@ -9,9 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigInteger;
 import java.util.AbstractMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.betvictor.processing.testUtilities.TestUtils.*;
 import static com.betvictor.processing.utilites.Constants.ONE;
@@ -35,7 +35,7 @@ public class RandomTextProcessorImplTest {
         ParagraphRequest paragraphRequest = createParagraphRequest(ONE, ONE, 2, 4);
         String[] words = createWords("One", "Two", "Three");
         Map.Entry<String, Integer> frequentWord = new AbstractMap.SimpleEntry<>("One", ONE);
-        StreamData streamData = createStreamData(frequentWord, BigInteger.ONE, BigInteger.valueOf(words.length));
+        StreamData streamData = createStreamData(frequentWord, new AtomicInteger(ONE), new AtomicInteger(words.length));
         RandomTextResponse randomTextResponse = new RandomTextResponse();
         randomTextResponse.setTextOut("<p>One Two Three.</p>\r");
         when(paragraphFeign.getRandomText(ONE, 2, 4)).thenReturn(randomTextResponse);

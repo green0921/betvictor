@@ -4,8 +4,8 @@ import com.betvictor.processing.model.ParagraphRequest;
 import com.betvictor.processing.model.ParagraphResponse;
 import com.betvictor.processing.model.StreamData;
 
-import java.math.BigInteger;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestUtils {
     private TestUtils() {
@@ -20,7 +20,7 @@ public class TestUtils {
         return paragraphRequest;
     }
 
-    public static StreamData createStreamData(Map.Entry<String, Integer> frequentWord, BigInteger paragraphSizeOfSum, BigInteger wordsNumberOfSum) {
+    public static StreamData createStreamData(Map.Entry<String, Integer> frequentWord, AtomicInteger paragraphSizeOfSum, AtomicInteger wordsNumberOfSum) {
         StreamData streamData = new StreamData();
         streamData.setFrequentWord(frequentWord);
         streamData.setParagraphSizeOfSum(paragraphSizeOfSum);
