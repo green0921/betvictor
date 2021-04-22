@@ -11,7 +11,6 @@ import java.util.stream.IntStream;
 
 import static com.betvictor.processing.utilites.Constants.REPLACE_REGEXP;
 import static com.betvictor.processing.utilites.Constants.SPLIT_REGEXP;
-import static java.math.BigInteger.valueOf;
 import static org.springframework.util.StringUtils.countOccurrencesOf;
 
 @Service
@@ -42,12 +41,12 @@ public class RandomTextProcessorImpl implements RandomTextProcessor {
         updateStreamData(streamData, frequentWord, words.length, numberOfParagraphs);
     }
 
-    private synchronized void updateStreamData(StreamData streamData, Map.Entry<String, Integer> frequentWord,
-                                               long wordsNumberOfSum, long numberOfParagraphs) {
+    private void updateStreamData(StreamData streamData, Map.Entry<String, Integer> frequentWord,
+                                               int wordsNumberOfSum, int numberOfParagraphs) {
         if (frequentWord.getValue() > streamData.getFrequentWord().getValue()) {
             streamData.setFrequentWord(frequentWord);
         }
-        streamData.setParagraphSizeOfSum(streamData.getParagraphSizeOfSum().add(valueOf(numberOfParagraphs)));
-        streamData.setWordsNumberOfSum(streamData.getWordsNumberOfSum().add(valueOf(wordsNumberOfSum)));
+        streamData.getParagraphSizeOfSum().getAndAdd(numberOfParagraphs);
+        streamData.getWordsNumberOfSum().getAndAdd(wordsNumberOfSum);
     }
 }

@@ -4,7 +4,7 @@ import com.betvictor.processing.model.ParagraphResponse;
 import com.betvictor.processing.model.StreamData;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.betvictor.processing.utilites.Constants.SECOND_FORMAT;
 import static com.betvictor.processing.utilites.Constants.ZERO;
@@ -14,19 +14,19 @@ public class ParagraphCreatorImpl implements ParagraphCreator {
 
     @Override
     public ParagraphResponse createParagraphResponse(StreamData streamData, long numberOfRequests, double totalProcessingTime) {
-        BigInteger averageParagraphSize = getAverageParagraphSizeIfNotZero(streamData);
+        int averageParagraphSize = getAverageParagraphSizeIfNotZero(streamData);
         double averageParagraphProcessingTime = getAverageParagraphProcessingTimeIfNotZero(numberOfRequests, totalProcessingTime);
         return new ParagraphResponse(
                 streamData.getFrequentWord().getKey(),
-                averageParagraphSize.toString(),
+                String.valueOf(averageParagraphSize),
                 String.format(SECOND_FORMAT, averageParagraphProcessingTime),
                 String.format(SECOND_FORMAT, totalProcessingTime));
     }
 
-    private BigInteger getAverageParagraphSizeIfNotZero(StreamData streamData){
-        return !streamData.getParagraphSizeOfSum().equals(BigInteger.ZERO)
-                ? streamData.getWordsNumberOfSum().divide(streamData.getParagraphSizeOfSum())
-                : BigInteger.ZERO;
+    private int getAverageParagraphSizeIfNotZero(StreamData streamData){
+        return streamData.getParagraphSizeOfSum().get() != ZERO
+                ? streamData.getWordsNumberOfSum().get() / streamData.getParagraphSizeOfSum().get()
+                : ZERO;
     }
 
     private double getAverageParagraphProcessingTimeIfNotZero(long numberOfRequests, double totalProcessingTime){
